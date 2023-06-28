@@ -19,13 +19,14 @@ class MovieTest extends TestCase
             'title' => 'title 1',
             'description' => 'description 1',
             'release_date' => fake()->dateTime(),
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $this->assertDatabaseCount('movies', 1);
     }
 
-    function test_can_create_movie_model_using_factory(): void {
+    public function test_can_create_movie_model_using_factory(): void
+    {
         Movie::factory()->create();
 
         $this->assertDatabaseCount('movies', 1);

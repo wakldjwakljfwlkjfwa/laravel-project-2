@@ -13,6 +13,6 @@ class Movie extends Model
         'title',
         'description',
         'release_date',
-        'user_id'
+        'user_id',
     ];
 }
