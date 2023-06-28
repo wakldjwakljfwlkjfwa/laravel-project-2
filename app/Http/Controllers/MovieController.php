@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FavoriteMovie;
 use App\Models\Movie;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -41,5 +42,14 @@ class MovieController extends Controller
         ]);
 
         return $favorite;
+    }
+
+    public function nonFavoritedMovies(Request $request, User $user)
+    {
+        $nonFavoritedMovies = Movie::whereDoesntHave('users', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->paginate();
+
+        return $nonFavoritedMovies;
     }
 }

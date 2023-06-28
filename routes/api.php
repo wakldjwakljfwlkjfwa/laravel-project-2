@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->name('api.')->group(function () {
     Route::post('/movies/', [MovieController::class, 'store'])->name('movies.store');
     Route::post('/movies/favorite', [MovieController::class, 'favorite'])->name('movies.favorite');
+    Route::get('/movies/non-favorited-movies/{user}', [MovieController::class, 'nonFavoritedMovies'])->name('movies.non-favorited-movies');
 });
