@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\Movie;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -28,5 +29,16 @@ class MovieControllerTest extends TestCase
 
         $response->assertStatus(201);
         $this->assertDatabaseCount('movies', 1);
+    }
+
+    public function test_movie_favorite_favorites_a_movie_to_a_user(): void
+    {
+        $movie = Movie::factory()->create();
+        $response = $this->post(route('api.movies.favorite'), [
+            'movie_id' => $movie->id,
+        ]);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseCount('favorite_movies', 1);
     }
 }

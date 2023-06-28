@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FavoriteMovie;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -25,5 +26,20 @@ class MovieController extends Controller
         ]);
 
         return $movie;
+    }
+
+    public function favorite(Request $request)
+    {
+        $validated = $request->validate([
+            'movie_id' => 'required|exists:movies,id',
+        ]);
+        $user = $request->user();
+
+        $favorite = FavoriteMovie::create([
+            'user_id' => $user->id,
+            'movie_id' => $validated['movie_id'],
+        ]);
+
+        return $favorite;
     }
 }
